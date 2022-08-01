@@ -1,0 +1,346 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+* { 
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+.title {
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+
+.black-lives-matter {
+  font-size: 20vw;
+  line-height: 15vw;
+  margin: 0;
+  font-weight: 900;
+  background: url(A.D.Patel_Institute_Of_Technology1.jpg);
+  /* background-size: 70%; */
+  background-position: 50% 50%;
+  -webkit-background-clip: text;
+  color: rgba(0,0,0,0.08);
+  animation: zoomout 10s ease 500ms forwards;
+}
+.black-lives-matter p{
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 600px){
+  .title{
+    width: 100vw;
+  }
+  .black-lives-matter p {
+    font-size: 8rem;
+  }
+  .title .text-bottom p{
+    font-size: 30px;
+  }
+}
+
+.black-lives-matter > span{
+  display: inline-block;
+}
+
+@keyframes zoomout {
+  from {
+    background-size: 10%;
+  }
+  to {
+    background-size: 100%;
+  }
+
+}
+
+
+@keyframes showTopText {
+  0% { transform: translate3d(0, 100%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes showBottomText {
+  0% { transform: translate3d(0, -100%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+.animated-title {
+  color: #222;
+  width: 90vmin;
+}
+.animated-title > div {
+  overflow: hidden;
+  width: 100%;
+  align-items: center;
+}
+.animated-title > div div {
+  font-size: 3rem;
+  justify-content: center;
+  padding: 2vmin 0;
+}
+.animated-title > div div span {
+  display: block;
+}
+.animated-title > div.text-top {
+  border-bottom: 1vmin solid #000;
+}
+.animated-title > div.text-bottom div {
+  animation: showBottomText 3s;
+  /* animation-delay: 6.5s; */
+  animation-fill-mode: forwards;
+  transform: translate(0, -100%);
+  text-align: center;
+}
+
+/* Nav bar */
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  animation-delay: 6.5s;
+  animation: showBottomText 3s;
+  height: 10vh;
+  /* animation-delay: 6.5s; */
+}
+
+.header .items  ul{
+  width: 50vw;
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: space-evenly;
+}
+
+.header .items ul li{
+  list-style-type: none;
+}
+
+ul li a{
+  position: relative;
+  display: block;
+  padding: 4px 0;
+  /* font-family: Lato, sans-serif; */
+  color: #000000;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+ul li a::after {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #127678;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s;
+}
+ul li a:hover {
+  color: #95a5a6;
+}
+ul li a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+
+
+
+:root {
+	--card-height: 40vw;
+	--card-margin: 4vw;
+	--card-top-offset: 1em;
+	--numcards: 4;
+	--outline-width: 0px;
+}
+
+#cards {
+	padding-bottom: calc(var(--numcards) * var(--card-top-offset)); /* Make place at bottom, as items will slide to that position*/
+	margin-bottom: var(--card-margin); /* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
+}
+
+#card_1 {
+	--index: 1;
+}
+
+#card_2 {
+	--index: 2;
+}
+
+#card_3 {
+	--index: 3;
+}
+
+#card_4 {
+	--index: 4;
+}
+
+.card {
+	position: sticky;
+	top: 0;
+	padding-top: calc(var(--index) * var(--card-top-offset));
+}
+
+@supports (animation-timeline: works) {
+
+	@scroll-timeline cards-element-scrolls-in-body {
+		source: selector(body);
+		scroll-offsets:
+			/* Start when the start edge touches the top of the scrollport */
+			selector(#cards) start 1,
+			/* End when the start edge touches the start of the scrollport */
+			selector(#cards) start 0
+		;
+		start: selector(#cards) start 1; /* Start when the start edge touches the top of the scrollport */
+		end: selector(#cards) start 0; /* End when the start edge touches the start of the scrollport */
+		time-range: 4s;
+	}
+
+	.card {
+		--index0: calc(var(--index) - 1); /* 0-based index */
+		--reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+		--reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
+	}
+	
+	.card__content {
+		transform-origin: 50% 0%;
+		will-change: transform;
+
+		--duration: calc(var(--reverse-index0) * 1s);
+		--delay: calc(var(--index0) * 1s);
+
+		animation: var(--duration) linear scale var(--delay) forwards;
+		animation-timeline: cards-element-scrolls-in-body;
+	}
+
+	@keyframes scale {
+		to {
+			transform:
+				scale(calc(
+					1.1
+					-
+					calc(0.1 * var(--reverse-index))
+				));
+		}
+	}
+}
+
+/** PAGE STYLING **/
+
+body {
+	/* color: rgb(255, 255, 255); */
+	/* text-align: center; */
+	/* font-size: calc(1em + 0.5vw); */
+}
+
+header,
+main {
+	width: 80vw;
+	margin: 0 auto;
+}
+
+header {
+	height: 100vh;
+	display: grid;
+	place-items: center;
+}
+
+#cards {
+	list-style: none;
+	outline: calc(var(--outline-width) * 10) solid blue;
+	
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(var(--numcards), var(--card-height));
+	gap: var(--card-margin);
+}
+
+.card {
+	outline: var(--outline-width) solid hotpink;
+}
+
+.card__content {
+	box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+	background: rgb(255, 255, 255);
+	color: rgb(10, 5, 7);
+	border-radius: 1em;
+	overflow: hidden;
+
+	display: grid;
+	grid-template-areas: "text img";
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
+
+	align-items: stretch;
+	outline: var(--outline-width) solid lime;
+}
+
+.card__content > div {
+	grid-area: text;
+	width: 80%;
+	place-self: center;
+	text-align: left;
+
+	display: grid;
+	gap: 1em;
+	place-items: start;
+}
+
+.card__content > figure {
+	grid-area: img;
+	overflow: hidden;
+}
+
+.card__content > figure > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+h1 {
+	font-weight: 300;
+	font-size: 3.5em;
+}
+
+h2 {
+	font-weight: 300;
+	font-size: 2.5em;
+}
+
+p {
+	font-family: sans-serif;
+	font-weight: 300;
+	line-height: 1;
+}
+
+.btn {
+	background: rgb(188 87 36);
+	color: rgb(255 255 255);
+	text-decoration: none;
+	display: inline-block;
+	padding: 0.5em;
+	border-radius: 0.25em;
+}
+
+aside {
+	width: 50vw;
+	margin: 0 auto;
+	text-align: left;
+}
+
+aside p {
+	margin-bottom: 1em;
+}
