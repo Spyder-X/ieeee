@@ -429,9 +429,9 @@ aside p {
 	/* background-color: blue; */
 	/* height: 100vh; */
 	/* position: absolute; */
-	top: 50%;
-	left: 50%;
-	transform: translate(25%, 50%);
+/* 	top: 50%; */
+/* 	left: 50%; */
+	transform: translate(90%, 50%);
   }
   #toggle:checked ~ .nav .nav-item {
 	color: #127678;
@@ -507,7 +507,7 @@ aside p {
   /* Menu */
   .nav {
 	display: inline-block;
-	width: 100vw;
+/* 	width: 100vw; */
 	margin: 25px 25px 20px;
 	pointer-events: none;
 	transition: 0.5s;
